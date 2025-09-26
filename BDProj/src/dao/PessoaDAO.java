@@ -1,50 +1,50 @@
 package dao;
 
-import model.Departamento;
+import model.Pessoa;
 import util.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DepartamentoDAO {
-    public void inserir(Departamento d) throws SQLException {
-        String sql = "INSERT INTO Departamento (nome) VALUES (?)";
+public class PessoaDAO {
+    public void inserir(Pessoa p) throws SQLException {
+        String sql = "INSERT INTO Pessoa (Jogo) VALUES (?)";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, d.getNome());
+            ps.setInt(1, p.getIdade());
             ps.executeUpdate();
         }
     }
 
-    public List<Departamento> listar() throws SQLException {
-        List<Departamento> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Departamento";
+    public List<Pessoa> listar() throws SQLException {
+        List<Pessoa> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Pessoa";
         try (Connection conn = ConnectionFactory.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                lista.add(new Departamento(rs.getInt("coddepto"), rs.getString("nome")));
+                lista.add(new Pessoa(rs.getInt("Cod"), rs.getInt("Idade")));
             }
         }
         return lista;
     }
 
-    public void atualizar(Departamento d) throws SQLException {
-        String sql = "UPDATE Departamento SET nome=? WHERE coddepto=?";
+    public void atualizar(Pessoa p) throws SQLException {
+        String sql = "UPDATE Pessoa SET Idade=? WHERE Cod=?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, d.getNome());
-            ps.setInt(2, d.getCoddepto());
+            ps.setInt(1, p.getIdade());
+            ps.setInt(2, p.getCod());
             ps.executeUpdate();
         }
     }
 
-    public void excluir(int id) throws SQLException {
-        String sql = "DELETE FROM Departamento WHERE coddepto=?";
+    public void excluir(int Cod) throws SQLException {
+        String sql = "DELETE FROM Pessoa WHERE Cod=?";
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
+            ps.setInt(1, Cod);
             ps.executeUpdate();
         }
     }

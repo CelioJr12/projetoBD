@@ -1,30 +1,30 @@
 package main;
 
-import dao.DepartamentoDAO;
-import dao.CursoDAO;
-import model.Departamento;
-import model.Curso;
+import dao.PessoaDAO;
+import dao.Defesas_de_Torres_JogadosDAO;
+import model.Pessoa;
+import model.Defesas_de_Torres_Jogados;
 
 import java.util.List;
 
 public class Exec {
     public static void main(String[] args) {
-        DepartamentoDAO deptoDAO = new DepartamentoDAO();
-        CursoDAO cursoDAO = new CursoDAO();
+        PessoaDAO pessDAO = new PessoaDAO();
+        Defesas_de_Torres_JogadosDAO dtjDAO = new Defesas_de_Torres_JogadosDAO();
 
         try {
             
-            cursoDAO.inserir(new Curso(6, "GTI", "Tecnólogo em Gestão da Informação", 1));
+        	dtjDAO.inserir(new Defesas_de_Torres_Jogados("PVZ",1));
             
-            System.out.println("Cursos cadastrados:");
-            List<Curso> cursos = cursoDAO.listar();
-            cursos.forEach(c -> System.out.println(c.getCodcurso() + " - " + c.getNome()));
+            System.out.println("Defesas de Torres Jogados cadastrados:");
+            List<Defesas_de_Torres_Jogados> Defesas_de_Torres_Jogados = dtjDAO.listar();
+            Defesas_de_Torres_Jogados.forEach(td -> System.out.println(td.getJogo() + " - " + td.getCod_Pessoa()));
             
 
 
-            System.out.println("\nDepartamentos cadastrados:");
-            List<Departamento> departamentos = deptoDAO.listar();
-            departamentos.forEach(d -> System.out.println(d.getCoddepto() + " - " + d.getNome()));
+            System.out.println("\nPessoas cadastradas:");
+            List<Pessoa> Pessoas = pessDAO.listar();
+            Pessoas.forEach(p -> System.out.println(p.getCod() + " - " + p.getIdade()));
 
         } catch (Exception e) {
             e.printStackTrace();
